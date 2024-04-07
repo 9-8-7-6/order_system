@@ -28,6 +28,9 @@ def home(request):
     location = g.city(ip)
     location_country = location["country_name"]
     location_city = location["city"]
+    latitude = location["latitude"]
+    longitude = location["longitude"]
+    
     context = {
         "ip": ip,
         "device_type": device_type,
@@ -36,6 +39,8 @@ def home(request):
         "os_type":os_type,
         "os_version":os_version,
         "location_country": location_country,
-        "location_city": location_city
+        "location_city": location_city,
+        "latitude": latitude,
+        "longitude": longitude
     }
     return render(request, "home.html", context)
