@@ -16,6 +16,38 @@
         <li>OS: {{os_type}} {{os_version}}</li>
         <li>City: {{ location_city }}</li>
         <li>Country: {{ location_country }}</li>
+        <li>Latitude: <span id="latitude"></span></li>
+        <li>Longitude: <span id="longitude"></span></li>
     </ul>
+
+    <script>
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+
+                document.getElementById("latitude").innerText = latitude;
+                document.getElementById("longitude").innerText = longitude;
+                var csrftoken = getCookie('csrftoken');
+              
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/update_location/", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        console.log(xhr.responseText);
+                    }
+                };
+                var data = JSON.stringify({
+                    latitude: latitude,
+                    longitude: longitude
+                });
+                xhr.send(data);
+            });
+        } else {
+            console.log("Geolocation is not supported by this browser.");
+        }
+    </script>
 </body>
 </html>
