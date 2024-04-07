@@ -9,7 +9,7 @@ SECRET_KEY = 'django-insecure-$_8piqx5!@-(1uv)r=4ph##$m99r2tbs!4!@nkc)k-mx+=#u9l
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 INSTALLED_APPS = [
@@ -40,7 +40,7 @@ ROOT_URLCONF = 'order_system.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
